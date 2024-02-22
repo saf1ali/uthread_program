@@ -1,0 +1,38 @@
+# Target library
+
+
+
+lib := libuthread.a
+objs := queue.o uthread.o private.o context.o preempt.o sem.o
+#sem.o preempt.o 
+CC := gcc
+CFLAGS := -Wall -Werror -Werror
+
+ifneq ($(V),1)
+Q=@
+endif
+CFLAGS := -Wall -Werror 
+
+all: $(lib)
+
+deps := $(patsubst %.o, %.d, $(objs))
+-include $(deps)
+
+
+
+
+%.o: %.c
+	@echo 'CC $@'
+	$(Q) $(CC) $(CFLAGS) -c -o $@ $<
+
+private.o: private.h
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+
+
+## static library
+$(lib): $(objs)
+	ar rcs $(lib) $(objs)
+
+clean:
+	$(Q) rm -f  $(objs) $(deps) $(lib)
