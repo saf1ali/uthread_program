@@ -1,4 +1,3 @@
-
 libuthread: User-Level Threading Library
 libuthread is a user-level threading library that leverages ucontext to provide an interface for creating user-level threads. It includes support for preemption, queues, and semaphores.
 
